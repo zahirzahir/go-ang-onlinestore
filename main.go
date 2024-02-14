@@ -1,10 +1,14 @@
 package main
+
 import (
-	"fmt"
-	"store.com/models"
+	"github.com/gin-gonic/gin"
+	"store.com/configs"
+	"store.com/router"
 )
 
 func main(){
-	models.User
-	fmt.Println("this is ")
+	r:= gin.Default()
+     configs.Migration()
+	 router.Route(r)
+	 r.Run()
 }
