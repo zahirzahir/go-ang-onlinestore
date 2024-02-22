@@ -20,7 +20,7 @@ import (
 
 func ParseToken(tokenString string) (claims *models.Claims, err error) {
 	token, err := jwt.ParseWithClaims(tokenString, &models.Claims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte("my_secret_key"), nil
+		return []byte("5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437"), nil
 	})
 
 	if err != nil {

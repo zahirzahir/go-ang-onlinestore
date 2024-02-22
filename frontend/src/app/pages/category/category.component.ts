@@ -9,10 +9,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class CategoryComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
-  constructor(private form: FormBuilder){}
- // form=Inject(FormBuilder)
+  form=Inject(FormBuilder)
 
-  catform =this.form.group({
+    catform =this.form.group({
     catname:['',Validators.required]
   })
 

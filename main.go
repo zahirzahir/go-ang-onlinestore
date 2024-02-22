@@ -1,6 +1,7 @@
 package main
 
 import (
+
 	"github.com/gin-gonic/gin"
 	"store.com/configs"
 	"store.com/router"
@@ -9,6 +10,6 @@ import (
 func main(){
 	r:= gin.Default()
      configs.Migration()
-	 router.Route(r)
+	   router.Route(r)
 	 r.Run()
 }

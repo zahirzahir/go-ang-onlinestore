@@ -1,1 +1,119 @@
-<p>user works!</p>
+<div class="me-lg-5 my-5">
+<div class="d-flex justify-content-between">
+<span class="display">User Management</span>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#user">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+  </svg>
+  </button>
+</div>
+<hr>
+<table datatable [dtOptions]="dtOptions" class=" row-border hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Email Add</th>
+      <th>Role</th>
+      <th>Action</th>
+
+    </tr>
+  </thead>
+   <tbody *ngIf="user?.length !== 0">
+    <tr *ngFor="let usr of user">
+       <td>{{ usr.ID }}</td>
+       <td>{{ usr.firstName }}</td>
+       <td>{{ usr.lastName }}</td>
+       <td>{{ usr.email }}</td>
+       <td>{{ usr.role }}</td>
+
+      <td>
+        <button (click)="editUser(usr.ID)" class="btn btn-link"
+        data-bs-toggle="modal" data-bs-target="#user">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/>
+        </svg>
+        </button>&nbsp;&nbsp;
+
+         <button class="btn btn-link " (click)="deleteUser(usr.ID)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+        </svg>         
+        </button>
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+</div>
+
+<div class="modal fade" tabindex="-1" id="user">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span *ngIf="formMode">Add User</span>
+        <span *ngIf="!formMode">Update User</span>        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="userform">
+          <input type="text" class="form-control" formControlName='ID' [hidden]="true"  />
+          <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" formControlName="firstName" aria-describedby="emailHelp">
+            <div *ngIf="f['firstName'].touched && f['firstName'].invalid" class="alert alert-danger">
+              <div *ngIf="f['firstName'].errors?.['required']">First Name is required.</div>
+          </div>
+          </div>
+
+           <div class="mb-3">
+            <label for="lastname" class="form-label">Last Name</label>
+            <input type="text" class="form-control" formControlName="lastName" aria-describedby="emailHelp">
+            <div *ngIf="f['lastName'].touched && f['lastName'].invalid" class="alert alert-danger">
+              <div *ngIf="f['lastName'].errors?.['required']" > Last Name is Required</div>
+            </div>
+           </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email </label>
+            <input type="text" class="form-control" formControlName="email" aria-describedby="emailHelp">
+            <div *ngIf="f['email'].touched && f['email'].invalid" class="alert alert-danger">
+              <div *ngIf="f['email'].errors?.['Email'] && f['email'].errors?.['.touched']">Email is invalid</div>
+            </div>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Password </label>
+            <input type="password" class="form-control" formControlName="password" aria-describedby="emailHelp">
+            <div *ngIf="f['password'].touched && f['password'].invalid" class="alert alert-danger">
+              <div *ngIf="f['password'].errors?.['required']" > password is Required</div>
+            </div>
+          </div>
+
+          <!-- <div class="mb-3">
+            <label for="password" class="form-label">Confirm Password </label>
+            <input type="password" formControlName="confirmPassword" class="form-control" />
+            <div *ngIf="f['confirmPassword'].touched && f['confirmPassword'].invalid" class="alert alert-danger">
+              <div *ngIf="f['confirmPassword'].errors?.['required']">Confirm is required</div>
+              <div *ngIf="f['confirmPassword'].errors?.['mustMatch']">Password  not match</div>
+          </div>
+          </div> -->
+
+          <div class="mb-3">
+            <label for="role" class="form-label">Role </label>
+            <input type="text" class="form-control" formControlName="role" aria-describedby="emailHelp">
+            <div *ngIf="f['role'].touched && f['role'].invalid" class="alert alert-danger">
+              <div *ngIf="f['role'].errors?.['required']" > Role is Required</div>
+            </div>         
+           </div>
+          <button (click)="saveUser()" type="submit" class="btn btn-primary" *ngIf="formMode">Add uer</button>
+          <button  (click)="updateUser()" type="submit" class="btn btn-primary" *ngIf="!formMode">Update uer</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
