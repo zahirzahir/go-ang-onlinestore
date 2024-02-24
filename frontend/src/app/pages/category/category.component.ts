@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, OnInit, inject } from '@angular/core';
+
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -8,10 +8,10 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  dtOptions: DataTables.Settings = {};
-  form=Inject(FormBuilder)
+  dtOptions:any={}
+  form= inject(FormBuilder)
 
-    catform =this.form.group({
+    catform = this.form.group({
     catname:['',Validators.required]
   })
 

@@ -10,12 +10,17 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { FooterComponent } from './layout/footer/footer.component';
-import { MainComponent } from './pages/main/main.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { ProductComponent } from './pages/product/product.component';
 import { UserComponent } from './pages/user/user.component';
 import { LoginComponent } from './login/login.component';
+import { AdminComponent } from './pages/admin/admin.component';
 import { AuthService } from './services/auth.service';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { MainComponent } from './public/main/main.component';
+import { HeadComponent } from './public/layout/head/head.component';
+import { FootersComponent } from './public/layout/footers/footers.component';
+
 
 @NgModule({
   declarations: [
@@ -23,11 +28,15 @@ import { AuthService } from './services/auth.service';
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    MainComponent,
+    DashboardComponent,
     CategoryComponent,
     ProductComponent,
     UserComponent,
-    LoginComponent
+    LoginComponent,
+    AdminComponent,
+    MainComponent,
+    HeadComponent,
+    FootersComponent
   ],
   imports: [
     BrowserModule,
@@ -37,15 +46,15 @@ import { AuthService } from './services/auth.service';
     FormsModule,
     ReactiveFormsModule,
     //NgMultiSelectDropDownModule.forRoot()
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: () => {
-          return localStorage.getItem('access_token');
-        },
-        allowedDomains: ['localhost:8080'],
-        disallowedRoutes: [],
-      },
-    }),
+    // JwtModule.forRoot({
+    //   config: {
+    //     tokenGetter: () => {
+    //       return localStorage.getItem('access_token');
+    //     },
+    //     allowedDomains: ['localhost:8080'],
+    //     disallowedRoutes: [],
+    //   },
+    // }),
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

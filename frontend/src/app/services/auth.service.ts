@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { User } from '../models/user';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -17,7 +15,8 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiServerUrl}/login`, { email, password })
+
+    return this.http.post<any>(`${this.apiServerUrl}/login`,{ email, password })
       // .pipe(
       //   tap(response => {
       //     if (response.token) {

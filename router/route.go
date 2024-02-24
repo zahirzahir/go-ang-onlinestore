@@ -10,12 +10,12 @@ import (
 func Route(r *gin.Engine){
 
 	r.POST("/login", handlers.Login)
-	r.Use(configs.RequireAuth)
+	r.GET("/user",handlers.AllUser)
+	r.Use(configs.IsAuthorized())
     r.POST("/signup",handlers.CreateUser)
 	r.GET("/user/:id",handlers.GetUserByid)
 	r.DELETE("/user/:id",handlers.DeleteUser)
 	r.PATCH("/user/:id",handlers.UpdateUser)
-	r.GET("/user",handlers.AllUser)
     r.GET("/logout",handlers.Logout)
 	r.Use(cors.Default())	 
 
