@@ -1,1 +1,140 @@
-<p>product works!</p>
+
+<div class="me-lg-5 my-5">
+<div class="d-flex justify-content-between">
+<span class="display">Product Management</span>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#product">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+  </svg>
+  </button>
+</div>
+<hr>
+<table datatable [dtOptions]="dtOptions" class=" row-border hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Product Name</th>
+      <th>Brand</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Lable</th>
+      <th>Picture</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="products?.length !== 0">
+    <tr *ngFor="let pro of products">
+       <td>{{ pro.ID }}</td>
+       <td>{{ pro.productName }}</td>
+       <td>{{ pro.brand }}</td>
+       <td>{{ pro.price }}</td>
+       <td>{{ pro.quantity }}</td>
+       <td>{{ pro.lableNumber }}</td>
+       <td>{{ pro.picture }}</td>
+      <td>
+        <button  class="btn btn-link" (click)="editProduct(pro.ID)"
+        data-bs-toggle="modal" data-bs-target="#product">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/>
+        </svg>
+        </button>&nbsp;&nbsp;
+
+         <button class="btn btn-link" (click)="deleteProduct(pro.ID)" >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+        </svg>
+        </button>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="product">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+       <span *ngIf="formMode">Add product</span>
+        <span *ngIf="!formMode">Update Product</span>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="productForm">
+           <input type="text"  formControlName='ID' [hidden]="true"  />
+
+           <div class="mb-3">
+            <label for="categoryId" class="form-label">Product Category</label>
+            <select class="form-select" formControlName= "categoryId">
+             
+              <option *ngFor="let cat of category" value="{{ cat.ID}}" >{{ cat.categoryName }}</option>
+            
+            </select>
+            </div>
+
+          <div class="mb-3">
+            <label for="productName" class="form-label">Product Name</label>
+            <input type="text" class="form-control" formControlName= "productName" aria-describedby="emailHelp">
+            <div *ngIf="f['productName'].touched && f['productName'].invalid" class="alert alert-danger">
+              <div *ngIf="f['productName'].errors?.['required']" > name is Required</div>
+            </div>
+            </div>
+
+            <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="text" class="form-control" formControlName= "quantity" aria-describedby="emailHelp">
+            <div *ngIf="f['quantity'].touched && f['quantity'].invalid" class="alert alert-danger">
+              <div *ngIf="f['quantity'].errors?.['required']" > quantity is Required</div>
+            </div>
+            </div>
+
+            <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="text" class="form-control" formControlName= "price" aria-describedby="emailHelp">
+            <div *ngIf="f['price'].touched && f['price'].invalid" class="alert alert-danger">
+              <div *ngIf="f['price'].errors?.['required']" > Price is Required</div>
+            </div>
+            </div>
+
+            <div class="mb-3">
+            <label for="brand" class="form-label">Brand</label>
+            <input type="text" class="form-control" formControlName= "brand" aria-describedby="emailHelp">
+            <div *ngIf="f['brand'].touched && f['brand'].invalid" class="alert alert-danger">
+              <div *ngIf="f['brand'].errors?.['required']" > Brand is Required</div>
+            </div>
+            </div>
+
+          <div class="mb-3">
+            <label for="lableNumber" class="form-label">Lable Number</label>
+            <input type="text" class="form-control" formControlName= "lableNumber" aria-describedby="emailHelp">
+            <div *ngIf="f['lableNumber'].touched && f['lableNumber'].invalid" class="alert alert-danger">
+              <div *ngIf="f['lableNumber'].errors?.['required']" > Lable Numberis Required</div>
+            </div>
+            </div>
+            <div class="mb-3">
+              <label for="picture" class="form-label">Lable Number</label>
+              <input type="file" class="form-control" formControlName= "picture" aria-describedby="emailHelp">
+              <div *ngIf="f['picture'].touched && f['picture'].invalid" class="alert alert-danger">
+                <div *ngIf="f['picture'].errors?.['required']" > Picture Required</div>
+              </div>
+              </div>
+            <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class=" form-control" formControlName= "description"></textarea>
+            <div *ngIf="f['description'].touched && f['description'].invalid" class="alert alert-danger">
+              <div *ngIf="f['description'].errors?.['required']" > Discription is Required</div>
+            </div>
+            </div>
+
+          <button (click)="updateProduct()" *ngIf="!formMode" class="btn btn-primary" >Update</button>
+          <button (click)="createProduct()" *ngIf="formMode" class="btn btn-primary" >Add New</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

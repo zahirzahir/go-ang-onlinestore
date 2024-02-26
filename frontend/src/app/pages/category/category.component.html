@@ -13,47 +13,30 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>First name</th>
-      <th>Last name</th>
+      <th>Category Name</th>
+      <th>Action</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Foo</td>
-      <td>Bar</td>
+  <tbody *ngIf="category?.length !== 0">
+    <tr *ngFor="let cat of category">
+       <td>{{ cat.ID }}</td>
+       <td>{{ cat.categoryName }}</td>
+
+      <td>
+        <button  class="btn btn-link" (click)="editCategory(cat.ID)"
+        data-bs-toggle="modal" data-bs-target="#category">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/>
+        </svg>
+        </button>&nbsp;&nbsp;
+
+         <button class="btn btn-link " (click)="deleteCategory(cat.ID)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+        </svg>
+        </button>
+      </td>
     </tr>
-    <tr>
-      <td>2</td>
-      <td>Someone</td>
-      <td>Youknow</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Iamout</td>
-      <td>Ofinspiration</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Yoda</td>
-      <td>Skywalker</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Patrick</td>
-      <td>Dupont</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Barack</td>
-      <td>Obama</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>François</td>
-      <td>Holland</td>
-    </tr>
-   
 
   </tbody>
 </table>
@@ -65,18 +48,22 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       <span *ngIf="formMode">Add Category</span>
+        <span *ngIf="!formMode">Update Category</span>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="catform">
+           <input type="text"  formControlName='ID' [hidden]="true"  />
           <div class="mb-3">
-            <label for="catname" class="form-label">Category Name</label>
-            <input type="email" class="form-control" formControlName="catname" aria-describedby="emailHelp">
-            <div *ngIf="f['catname'].touched" class=" alert alert-danger">Catname Required</div>
-          </div>
-
-          <button type="submit" class="btn btn-primary">Submit</button>
+            <label for="categoryName" class="form-label">Category Name</label>
+            <input type="text" class="form-control" formControlName="categoryName" aria-describedby="emailHelp">
+            <div *ngIf="f['categoryName'].touched && f['categoryName'].invalid" class="alert alert-danger">
+              <div *ngIf="f['categoryName'].errors?.['required']" > Category is Required</div>
+            </div>
+            </div>
+          <button (click)="updateCategory()" *ngIf="!formMode" class="btn btn-primary" >Update</button>
+          <button (click)="createCategory()" *ngIf="formMode" class="btn btn-primary" >Add New</button>
         </form>
       </div>
       <div class="modal-footer">

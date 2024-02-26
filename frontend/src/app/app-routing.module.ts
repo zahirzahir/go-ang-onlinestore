@@ -11,14 +11,14 @@ import { MainComponent } from './public/main/main.component';
 const routes: Routes = [
   {path: '',component:MainComponent,
 children:[
-  
+
 ] },
   {path: 'login',component: LoginComponent},
   {path: '',component: AdminComponent,
   children:[
-  {path:'dashboard',component:DashboardComponent},
+  {path: 'dashboard',component:DashboardComponent},
   {path: 'category', component: CategoryComponent},
-  {path:  'product' , component: ProductComponent},
+  {path: 'product', component:ProductComponent},
   {path: 'user', component: UserComponent},
 ]}
 ];

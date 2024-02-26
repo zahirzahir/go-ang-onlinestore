@@ -1,23 +1,17 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg  bg-info">
   <div class="container-fluid ">
-  
+
     <a class="navbar-brand" href="#">OnlineStore</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#publicmenu" aria-controls="publicmenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+    <div class="collapse navbar-collapse justify-content-center" id="publicmenu">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex ">
+        <li class="nav-item " *ngFor="let cat of category">
+          <a class="nav-link text-white" href="#">{{cat.categoryName}}</a>
         </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-
       </ul>
-      <form class="d-flex">
+      <form class=" d-flex">
       <div class="input-group">
      <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
      <button class="btn btn-outline-primary text-white" type="button" id="button-addon1">

@@ -2,7 +2,6 @@ package configs
 import (
 	"fmt"
 	"store.com/models"
-
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -20,4 +19,5 @@ func Migration() {
 	}
 	DB.AutoMigrate(&models.Category{})
 	DB.AutoMigrate(&models.User{})
+	DB.AutoMigrate(&models.Product{})
 }

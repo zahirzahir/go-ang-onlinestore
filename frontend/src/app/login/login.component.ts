@@ -32,7 +32,7 @@ export class LoginComponent {
          localStorage.setItem("access_token",res.token)
          // if(this.cookieservice.get("access_token") !=null){
           console.log(res.token)
-          this.router.navigate(['/user']);
+          this.router.navigate(['/dashboard']);
           //}
       } );
 

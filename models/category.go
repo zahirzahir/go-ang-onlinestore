@@ -4,5 +4,6 @@ package models
  )
  type Category struct{
 	gorm.Model
-	CategoryName string 
+	CategoryName string `json:"categoryName"`
+	Product []Product
  }
